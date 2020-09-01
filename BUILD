@@ -5,7 +5,7 @@ creates:
 - deploy/moj.zip (suitable for distribution)
 
 Notes from Neal:
-Do Project -> Clean and also build (make sure Build Automatically is
-unchecked). Then run ./package.sh and then copy deploy/moj.jar over to
+In Eclipse, do Project -> Clean and also build (make sure Build Automatically
+is unchecked). Then run ./package.sh and then copy deploy/moj.jar over to
 ~/Contests/Topcoder/moj_4.18/. Finally update in the arena and restart the
 arena.

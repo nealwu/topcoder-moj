@@ -342,9 +342,8 @@ public class CPPHarnessGenerator implements HarnessGenerator {
             if (i == testCases.length) {
                 code.add("");
                 code.add("      // custom cases");
-                code.add("");
             }
-            code.add((i >= testCases.length ? "/*" : "") + "      case " + i + ": {");
+            code.add((i >= testCases.length ? "/*\n" : "") + "      case " + i + ": {");
             generateTestCase(code, i, testCases[i < testCases.length ? i : 0], i >= testCases.length);
             code.add("      }" + (i >= testCases.length ? "*/" : ""));
         }
