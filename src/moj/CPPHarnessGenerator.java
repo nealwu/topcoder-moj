@@ -15,7 +15,10 @@ public class CPPHarnessGenerator implements HarnessGenerator {
 
     final Preferences           m_pref;
     final String                m_targetCompiler;
-    
+
+    final double                m_points;
+    final long                  m_time;
+
     static class TestCodeGenerationState {
         public Set<String> headers = new TreeSet<String>();
         public ArrayList<String> lines = new ArrayList<String>();
@@ -34,6 +37,8 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         m_lang = lang;
         m_pref = pref;
         m_targetCompiler = pref.getTargetCompiler();
+        m_points = problem.getPoints();
+        m_time = System.currentTimeMillis() / 1000;
     }
 
     public String generateDefaultMain() {
@@ -353,6 +358,17 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         return -1;");
         code.add("      }");
         code.add("   }");
+        code.add("   ");
+    }
+
+    void generateProblemTimeAndScore(TestCodeGenerationState code) {
+        code.add("   void print_problem_time_and_score() {");
+        code.add("      long long T = time(nullptr) - " + m_time + ";");
+        code.add("      long double PT = T / 60.0L, TT = 75.0;");
+        code.add("      fprintf(stderr, \"\\n\");");
+        code.add("      fprintf(stderr, \"Time : %lldm %02llds\\n\", T / 60, T % 60);");
+        code.add("      fprintf(stderr, \"Score: %.2Lf points\\n\", " + m_points + " * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT)));");
+        code.add("   }");
     }
 
     public String generateTestCode() {
@@ -365,6 +381,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         generateFormatResult(code);
         generateVerifyCase(code);
         generateRunTestCase(code);
+        generateProblemTimeAndScore(code);
         code.add("}");
 
         StringBuilder sb = new StringBuilder();
