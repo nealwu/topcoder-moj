@@ -80,7 +80,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         }");
         code.add("         return;");
         code.add("      }");
-        code.add("      ");
+        code.add("");
         code.add("      int correct = 0, total = 0;");
         code.add("      for (int i=0;; ++i) {");
         code.add("         int x = run_test_case(i);");
@@ -91,7 +91,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         correct += x;");
         code.add("         ++total;");
         code.add("      }");
-        code.add("      ");
+        code.add("");
         code.add("      if (total == 0) {");
         code.add("         std::cerr << \"No test cases run.\" << std::endl;");
         code.add("      } else if (correct < total) {");
@@ -100,7 +100,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         std::cerr << \"All \" << total << \" tests passed!\" << std::endl;");
         code.add("      }");
         code.add("   }");
-        code.add("   ");
+        code.add("");
     }
 
     void generateOutputComparison(TestCodeGenerationState code) {
@@ -151,7 +151,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
                 code.add("   static bool topcoder_fequ(const vector<double> &a, const vector<double> &b) { if (a.size() != b.size()) return false; for (size_t i=0; i<a.size(); ++i) if (!topcoder_fequ(a[i], b[i])) return false; return true; }");
                 code.add("   double moj_relative_error(const vector<double> &expected, const vector<double> &result) { double ret = 0.0; for (size_t i=0; i<expected.size(); ++i) { ret = std::max(ret, moj_relative_error(expected[i], result[i])); } return ret; }");
             }
-            code.add("   ");
+            code.add("");
         }
     }
 
@@ -177,24 +177,24 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.addHeader("iostream");
         code.addHeader("string");
         code.addHeader("vector");
-        code.add("   int verify_case(int casenum, const " + typeName + " &expected, const " + typeName + " &received, std::clock_t elapsed) { ");
-        code.add("      std::cerr << \"Example \" << casenum << \"... \"; ");
-        code.add("      ");
+        code.add("   int verify_case(int casenum, const " + typeName + " &expected, const " + typeName + " &received, std::clock_t elapsed) {");
+        code.add("      std::cerr << \"Example \" << casenum << \"... \";");
+        code.add("");
         code.add("      string verdict;");
         code.add("      vector<string> info;");
         code.add("      char buf[100];");
-        code.add("      ");
+        code.add("");
         code.add("      if (elapsed >= 0.0005L * CLOCKS_PER_SEC) {");
         code.add("         std::sprintf(buf, \"time %.3Lfs\", 1.0L * elapsed / CLOCKS_PER_SEC);");
         code.add("         info.push_back(buf);");
         code.add("      }");
-        code.add("      ");
+        code.add("");
 
         // Print "PASSED" or "FAILED" based on the result
         if (returnType.getBaseName().equals("double")) {
             code.add("      if (topcoder_fequ(expected, received)) {");
             code.add("         verdict = \"PASSED\";");
-            code.add("         double rerr = moj_relative_error(expected, received); ");
+            code.add("         double rerr = moj_relative_error(expected, received);");
             code.add("         if (rerr > 0) {");
             code.add("            std::sprintf(buf, \"relative error %.3e\", rerr);");
             code.add("            info.push_back(buf);");
@@ -206,7 +206,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("      } else {");
         code.add("         verdict = \"FAILED\";");
         code.add("      }");
-        code.add("      ");
+        code.add("");
         code.add("      std::cerr << verdict;");
         code.add("      if (!info.empty()) {");
         code.add("         std::cerr << \" (\";");
@@ -217,18 +217,18 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         std::cerr << \")\";");
         code.add("      }");
         code.add("      std::cerr << std::endl;");
-        code.add("      ");
+        code.add("");
 
         code.add("      if (verdict == \"FAILED\") {");
         if (returnType.getBaseName().equals("String") &&	returnType.getDimension() == 0) {
-            code.add("         std::cerr << \"    Expected: \\\"\" << expected << \"\\\"\" << std::endl; ");
-            code.add("         std::cerr << \"    Received: \\\"\" << received << \"\\\"\" << std::endl; ");
+            code.add("         std::cerr << \"    Expected: \\\"\" << expected << \"\\\"\" << std::endl;");
+            code.add("         std::cerr << \"    Received: \\\"\" << received << \"\\\"\" << std::endl;");
         } else {
-            code.add("         std::cerr << \"    Expected: \" << expected << std::endl; ");
-            code.add("         std::cerr << \"    Received: \" << received << std::endl; ");
+            code.add("         std::cerr << \"    Expected: \" << expected << std::endl;");
+            code.add("         std::cerr << \"    Received: \" << received << std::endl;");
         }
         code.add("      }");
-        code.add("      ");
+        code.add("");
         code.add("      return verdict == \"PASSED\";");
         code.add("   }");
         code.add("");
@@ -358,7 +358,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("         return -1;");
         code.add("      }");
         code.add("   }");
-        code.add("   ");
+        code.add("");
     }
 
     void generateProblemTimeAndScore(TestCodeGenerationState code) {
