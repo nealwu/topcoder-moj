@@ -384,6 +384,7 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         ret = Pattern.compile("^         "      , Pattern.MULTILINE).matcher(ret).replaceAll("\t\t\t");
         ret = Pattern.compile("^      "         , Pattern.MULTILINE).matcher(ret).replaceAll("\t\t");
         ret = Pattern.compile("^   "            , Pattern.MULTILINE).matcher(ret).replaceAll("\t");
+        ret = ret.replaceAll("\t", "    ");
         return ret;
     }
 }
