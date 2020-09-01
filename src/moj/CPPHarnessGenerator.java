@@ -179,8 +179,8 @@ public class CPPHarnessGenerator implements HarnessGenerator {
         code.add("      vector<string> info;");
         code.add("      char buf[100];");
         code.add("      ");
-        code.add("      if (elapsed > CLOCKS_PER_SEC / 200) {");
-        code.add("         std::sprintf(buf, \"time %.2fs\", elapsed * (1.0/CLOCKS_PER_SEC));");
+        code.add("      if (elapsed >= 0.0005L * CLOCKS_PER_SEC) {");
+        code.add("         std::sprintf(buf, \"time %.3Lfs\", 1.0L * elapsed / CLOCKS_PER_SEC);");
         code.add("         info.push_back(buf);");
         code.add("      }");
         code.add("      ");
